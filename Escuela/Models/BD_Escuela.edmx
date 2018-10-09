@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BD_EscuelaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alumnos">
+          <Key>
+            <PropertyRef Name="ID_Alumnos" />
+          </Key>
+          <Property Name="ID_Alumnos" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fecha_nac" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefono" Type="int" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notas">
+          <Key>
+            <PropertyRef Name="ID_Nota" />
+          </Key>
+          <Property Name="ID_Nota" Type="int" Nullable="false" />
+          <Property Name="Nota1" Type="float" Nullable="false" />
+          <Property Name="Nota2" Type="float" Nullable="false" />
+          <Property Name="Nota3" Type="float" Nullable="false" />
+          <Property Name="Promedio" Type="float" Nullable="false" />
+          <Property Name="Materia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Alumno" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Notas_Alumnos">
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="1" />
+          <End Role="Notas" Type="Self.Notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumnos">
+              <PropertyRef Name="ID_Alumnos" />
+            </Principal>
+            <Dependent Role="Notas">
+              <PropertyRef Name="ID_Alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_EscuelaModelStoreContainer">
+          <EntitySet Name="Alumnos" EntityType="Self.Alumnos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notas" EntityType="Self.Notas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Notas_Alumnos" Association="Self.FK_Notas_Alumnos">
+            <End Role="Alumnos" EntitySet="Alumnos" />
+            <End Role="Notas" EntitySet="Notas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_EscuelaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="ID_Alumnos" />
+          </Key>
+          <Property Name="ID_Alumnos" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha_nac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="Int32" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Notas" Relationship="Self.FK_Notas_Alumnos" FromRole="Alumnos" ToRole="Notas" />
+        </EntityType>
+        <EntityType Name="Nota">
+          <Key>
+            <PropertyRef Name="ID_Nota" />
+          </Key>
+          <Property Name="ID_Nota" Type="Int32" Nullable="false" />
+          <Property Name="Nota1" Type="Double" Nullable="false" />
+          <Property Name="Nota2" Type="Double" Nullable="false" />
+          <Property Name="Nota3" Type="Double" Nullable="false" />
+          <Property Name="Promedio" Type="Double" Nullable="false" />
+          <Property Name="Materia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Alumno" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_Notas_Alumnos" FromRole="Notas" ToRole="Alumnos" />
+        </EntityType>
+        <Association Name="FK_Notas_Alumnos">
+          <End Role="Alumnos" Type="Self.Alumno" Multiplicity="1" />
+          <End Role="Notas" Type="Self.Nota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumnos">
+              <PropertyRef Name="ID_Alumnos" />
+            </Principal>
+            <Dependent Role="Notas">
+              <PropertyRef Name="ID_Alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_EscuelaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumnos" EntityType="Self.Alumno" />
+          <EntitySet Name="Notas" EntityType="Self.Nota" />
+          <AssociationSet Name="FK_Notas_Alumnos" Association="Self.FK_Notas_Alumnos">
+            <End Role="Alumnos" EntitySet="Alumnos" />
+            <End Role="Notas" EntitySet="Notas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_EscuelaModelStoreContainer" CdmEntityContainer="BD_EscuelaEntities">
+          <EntitySetMapping Name="Alumnos">
+            <EntityTypeMapping TypeName="BD_EscuelaModel.Alumno">
+              <MappingFragment StoreEntitySet="Alumnos">
+                <ScalarProperty Name="ID_Alumnos" ColumnName="ID_Alumnos" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Fecha_nac" ColumnName="Fecha_nac" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notas">
+            <EntityTypeMapping TypeName="BD_EscuelaModel.Nota">
+              <MappingFragment StoreEntitySet="Notas">
+                <ScalarProperty Name="ID_Nota" ColumnName="ID_Nota" />
+                <ScalarProperty Name="Nota1" ColumnName="Nota1" />
+                <ScalarProperty Name="Nota2" ColumnName="Nota2" />
+                <ScalarProperty Name="Nota3" ColumnName="Nota3" />
+                <ScalarProperty Name="Promedio" ColumnName="Promedio" />
+                <ScalarProperty Name="Materia" ColumnName="Materia" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ID_Alumno" ColumnName="ID_Alumno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

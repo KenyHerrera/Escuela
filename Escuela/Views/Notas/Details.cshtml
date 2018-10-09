@@ -1,0 +1,74 @@
+﻿@model Escuela.Models.Nota
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Nota</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nota1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nota1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nota2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nota2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nota3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nota3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Promedio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Promedio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Materia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Materia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Nota }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
