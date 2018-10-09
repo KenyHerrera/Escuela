@@ -48,8 +48,24 @@ namespace Escuela.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_Nota,Nota1,Nota2,Nota3,Promedio,Materia,Estado,ID_Alumno")] Nota nota)
+        public ActionResult Create([Bind(Include = "ID_Nota,Nota1,Nota2,Nota3,Materia,ID_Alumno")] Nota nota)
         {
+            double n1 = nota.Nota1, n2 = nota.Nota2, n3=nota.Nota3;
+            double prom=(n1+n2+n3)/3;
+            nota.Promedio = prom;
+            if (prom>=6 && prom <= 10)
+            {
+                nota.Estado = "APROBADO";
+            }else if(prom<6 && prom>0)
+            {
+                nota.Estado = "REPROBADO";
+            }
+            else
+            {
+                nota.Estado = "Nota no valida";
+            }
+            
+            
             if (ModelState.IsValid)
             {
                 db.Notas.Add(nota);
